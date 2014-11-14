@@ -58,7 +58,7 @@ namespace BlyncMorseCode
         public bool ProcessString(string stringToProcess)
         {
             if (MorseCharacterSet == null) throw new ArgumentNullException("MorseCharacterSet", "If you use a custom IMorseCodeEngine you must initialize a ICharacterSet through IMorseCodeEngine.RegisterCharacterSet(ICharacterSet)");
-            return DisplayEngine.ProcessString(stringToProcess, workingConverter, _configuration);
+            return DisplayEngine.ProcessString(stringToProcess.ToLower(), workingConverter, _configuration);
         }
     }
 }
