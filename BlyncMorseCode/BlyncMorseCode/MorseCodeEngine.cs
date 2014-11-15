@@ -9,18 +9,19 @@ namespace BlyncMorseCode
 {
     internal class MorseCodeEngine : IMorseCodeEngine
     {
-        private MorseTimingConfiguration _configuration;
+        private MorseCodeEngineConfiguration _configuration;
         private ICharacterSet MorseCharacterSet { get; set; }
         private IDisplayEngine DisplayEngine { get; set; }
         
-        public MorseCodeEngine(MorseTimingConfiguration configuration, ICharacterSet morseCharacterSet, IDisplayEngine displayEngine)
+        public MorseCodeEngine(MorseCodeEngineConfiguration configuration, ICharacterSet morseCharacterSet, IDisplayEngine displayEngine)
         {
             _configuration = configuration;
             MorseCharacterSet = morseCharacterSet;
+            ProcessCharacterSet(MorseCharacterSet);
             DisplayEngine = displayEngine;
         }
         
-        private Dictionary<char, List<int>> workingConverter;
+        private Dictionary<char, List<int>> _workingConverter;
         
         public bool RegisterCharacterSet(ICharacterSet characterSet)
         {
@@ -29,7 +30,7 @@ namespace BlyncMorseCode
             return true;
         }
 
-        public bool UpdateConfiguration(MorseTimingConfiguration configuration)
+        public bool UpdateConfiguration(MorseCodeEngineConfiguration configuration)
         {
             _configuration = configuration;
             return true;
@@ -37,8 +38,8 @@ namespace BlyncMorseCode
 
         internal void ProcessCharacterSet(ICharacterSet characterSet)
         {
-            workingConverter = new Dictionary<char, List<int>>();
-            var DotDash = new Dictionary<char, int>
+            _workingConverter = new Dictionary<char, List<int>>();
+            var dotDash = new Dictionary<char, int>
             {
                 {'.', _configuration.DotLengthInMilliseconds},
                 {'-', _configuration.DashLengthInMilliseconds}
@@ -48,17 +49,17 @@ namespace BlyncMorseCode
                 var morseCharArray = x.Morse.ToCharArray();
                 List<int> parsedMorse = morseCharArray.ToList().Select(character =>
                 {
-                    if (!DotDash.ContainsKey(character)) throw new ArgumentOutOfRangeException("CharacterMapping", x, string.Format("CharacterMapping contains an invalid character of {0}", character));
-                    return DotDash[character];
+                    if (!dotDash.ContainsKey(character)) throw new ArgumentOutOfRangeException("CharacterMapping", x, string.Format("CharacterMapping contains an invalid character of {0}", character));
+                    return dotDash[character];
                 }).ToList();
-                workingConverter.Add(x.Character, parsedMorse);
+                _workingConverter.Add(x.Character, parsedMorse);
             });
         }
 
         public bool ProcessString(string stringToProcess)
         {
             if (MorseCharacterSet == null) throw new ArgumentNullException("MorseCharacterSet", "If you use a custom IMorseCodeEngine you must initialize a ICharacterSet through IMorseCodeEngine.RegisterCharacterSet(ICharacterSet)");
-            return DisplayEngine.ProcessString(stringToProcess.ToLower(), workingConverter, _configuration);
+            return DisplayEngine.ProcessString(stringToProcess.ToLower(), _workingConverter, _configuration);
         }
     }
 }

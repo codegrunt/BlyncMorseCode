@@ -20,23 +20,23 @@ namespace BlyncMorseCode.Engine
         private static readonly object SynLock = new object();
 
         //Singleton Instance
-        public static volatile BlyncEngine instance;
+        public static volatile BlyncEngine _instance;
 
         public static BlyncEngine Instance 
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     lock (SynLock)
                     {
-                        if (instance == null)
+                        if (_instance == null)
                         {
-                            instance = new BlyncEngine();
+                            _instance = new BlyncEngine();
                         }
                     }
                 }
-                return instance;
+                return _instance;
             }
         }
 
@@ -45,7 +45,7 @@ namespace BlyncMorseCode.Engine
             _devices = _blyncLightController.InitBlyncDevices();
         }
 
-        public bool ProcessString(string inputString, Dictionary<char, List<int>> characterMappingDictionary, MorseTimingConfiguration configuration)
+        public bool ProcessString(string inputString, Dictionary<char, List<int>> characterMappingDictionary, MorseCodeEngineConfiguration configuration)
         {
             try
             {
@@ -54,18 +54,14 @@ namespace BlyncMorseCode.Engine
                 var inputCharArray = inputString.ToCharArray();
                 inputCharArray.ToList().ForEach(character =>
                 {
-                    if (character == char.Parse(" "))
-                    {
-                        Blink(BlyncLightController.Color.White, configuration.MissingCharacterDisplayInMilliseconds, configuration.BreakPauseInMilliseconds);
-                        Thread.Sleep(configuration.WordPauseInMilliseconds);
-                    }
                     if (characterMappingDictionary.ContainsKey(character))
                     {
                         characterMappingDictionary[character].ForEach( blinkLength => Blink(BlyncLightController.Color.Green, blinkLength, configuration.BreakPauseInMilliseconds));
                     }
                     else
                     {
-                        Blink(BlyncLightController.Color.Red,configuration.MissingCharacterDisplayInMilliseconds, configuration.BreakPauseInMilliseconds);
+                        Blink(character == ' ' ? BlyncLightController.Color.White : BlyncLightController.Color.Red,
+                            configuration.MissingCharacterDisplayInMilliseconds, configuration.BreakPauseInMilliseconds);
                     }
                 });
                 if(!configuration.EndOfStringFlicker) return true;

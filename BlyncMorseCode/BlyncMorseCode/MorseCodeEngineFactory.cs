@@ -6,26 +6,33 @@ using BlyncMorseCode.Resource;
 
 namespace BlyncMorseCode
 {
-    public class MorseCodeEngineFactory
+    static class MorseCodeEngineFactory
     {
-        private readonly Dictionary<Languages, CreateEngine> _engineGenerators = new Dictionary<Languages,CreateEngine>();
+        static readonly Dictionary<Languages, CreateEngine> EngineGenerators = new Dictionary<Languages,CreateEngine>();
 
-        public MorseCodeEngineFactory()
+        static MorseCodeEngineFactory()
         {
-            _engineGenerators[Languages.American] = makeAmericanEngine;
+            EngineGenerators[Languages.American] = MakeAmericanEngine;
+            EngineGenerators[Languages.Custom] = MakeCustomEngine;
         }
 
-        private delegate IMorseCodeEngine CreateEngine(MorseTimingConfiguration configuration);
+        private delegate IMorseCodeEngine CreateEngine(MorseCodeEngineConfiguration configuration);
 
-        public IMorseCodeEngine GenerateEngine(Languages languageChoice, MorseTimingConfiguration configuration)
+        static IMorseCodeEngine GenerateEngine(Languages languageChoice, MorseCodeEngineConfiguration configuration)
         {
-            if(!_engineGenerators.ContainsKey(languageChoice)) throw new NotImplementedException();
-            return _engineGenerators[languageChoice](configuration);
+            if(!EngineGenerators.ContainsKey(languageChoice)) throw new NotImplementedException();
+            return EngineGenerators[languageChoice](configuration);
         }
 
-        private IMorseCodeEngine makeAmericanEngine(MorseTimingConfiguration configuration)
+        static IMorseCodeEngine MakeAmericanEngine(MorseCodeEngineConfiguration configuration)
         {
             return new MorseCodeEngine(configuration, new American(), BlyncEngine.Instance);
         }
+
+        static IMorseCodeEngine MakeCustomEngine(MorseCodeEngineConfiguration configuration)
+        {
+            return new MorseCodeEngine(configuration, configuration.CustomCharacterSet, BlyncEngine.Instance);
+        }
+
     }
 }
