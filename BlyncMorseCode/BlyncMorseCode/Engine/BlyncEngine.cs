@@ -49,28 +49,35 @@ namespace BlyncMorseCode.Engine
         {
             try
             {
-                var replaceMultiSpace = new Regex(" +");
-                inputString = replaceMultiSpace.Replace(inputString, " ");
-                var inputCharArray = inputString.ToCharArray();
-                inputCharArray.ToList().ForEach(character =>
+                lock (SynLock)
                 {
-                    if (characterMappingDictionary.ContainsKey(character))
+                    var replaceMultiSpace = new Regex(" +");
+                    inputString = replaceMultiSpace.Replace(inputString, " ");
+                    var inputCharArray = inputString.ToCharArray();
+                    inputCharArray.ToList().ForEach(character =>
                     {
-                        characterMappingDictionary[character].ForEach( blinkLength => Blink(BlyncLightController.Color.Green, blinkLength, configuration.BreakPauseInMilliseconds));
-                    }
-                    else
+                        if (characterMappingDictionary.ContainsKey(character))
+                        {
+                            characterMappingDictionary[character].ForEach(
+                                blinkLength =>
+                                    Blink(BlyncLightController.Color.Green, blinkLength,
+                                        configuration.BreakPauseInMilliseconds));
+                        }
+                        else
+                        {
+                            Blink(character == ' ' ? BlyncLightController.Color.White : BlyncLightController.Color.Red,
+                                configuration.MissingCharacterDisplayInMilliseconds,
+                                configuration.BreakPauseInMilliseconds);
+                        }
+                    });
+                    if (!configuration.EndOfStringFlicker) return true;
+                    var colors = new List<int> {6, 4, 5, 3, 1, 8};
+                    for (int i = 0; i < 50; i++)
                     {
-                        Blink(character == ' ' ? BlyncLightController.Color.White : BlyncLightController.Color.Red,
-                            configuration.MissingCharacterDisplayInMilliseconds, configuration.BreakPauseInMilliseconds);
+                        colors.ForEach(x => Blink((BlyncLightController.Color) x, 10, 0));
                     }
-                });
-                if(!configuration.EndOfStringFlicker) return true;
-                var colors = new List<int> { 6, 4, 5, 3, 1, 8 };
-                for (int i = 0; i < 50; i++)
-                {
-                    colors.ForEach(x => Blink((BlyncLightController.Color) x,10,0));
+                    return true;
                 }
-                return true;
             }
             catch (Exception ex)
             {
