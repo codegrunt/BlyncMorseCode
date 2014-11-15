@@ -6,7 +6,7 @@ using BlyncMorseCode.Resource;
 
 namespace BlyncMorseCode
 {
-    static class MorseCodeEngineFactory
+    public static class MorseCodeEngineFactory
     {
         static readonly Dictionary<Languages, CreateEngine> EngineGenerators = new Dictionary<Languages,CreateEngine>();
 
@@ -18,7 +18,7 @@ namespace BlyncMorseCode
 
         private delegate IMorseCodeEngine CreateEngine(MorseCodeEngineConfiguration configuration);
 
-        static IMorseCodeEngine GenerateEngine(Languages languageChoice, MorseCodeEngineConfiguration configuration)
+        public static IMorseCodeEngine GenerateEngine(Languages languageChoice, MorseCodeEngineConfiguration configuration)
         {
             if(!EngineGenerators.ContainsKey(languageChoice)) throw new NotImplementedException();
             return EngineGenerators[languageChoice](configuration);
