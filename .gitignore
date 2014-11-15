@@ -45,3 +45,6 @@ Temporary Items
 
 # Restricted Files:
 BlyncLightSDK.dll
+
+# SUO Files
+*.suo
