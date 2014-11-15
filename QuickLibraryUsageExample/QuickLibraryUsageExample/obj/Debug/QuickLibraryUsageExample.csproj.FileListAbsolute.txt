@@ -1,0 +1,9 @@
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\QuickLibraryUsageExample.exe.config
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\obj\Debug\QuickLibraryUsageExample.csprojResolveAssemblyReference.cache
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\QuickLibraryUsageExample.exe
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\QuickLibraryUsageExample.pdb
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\BlyncMorseCode.dll
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\BlyncLightSDK.dll
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\bin\Debug\BlyncMorseCode.pdb
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\obj\Debug\QuickLibraryUsageExample.exe
+C:\src\BlyncMorseCode\QuickLibraryUsageExample\QuickLibraryUsageExample\obj\Debug\QuickLibraryUsageExample.pdb

@@ -1,0 +1,12 @@
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\obj\Debug\BlyncMorseCode.csprojResolveAssemblyReference.cache
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\BlyncMorseCode.dll
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\BlyncMorseCode.pdb
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\BlyncLightSDK.dll
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.dll
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.FullNetFx.dll
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.pdb
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.xml
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.FullNetFx.pdb
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\bin\Debug\Serilog.FullNetFx.xml
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\obj\Debug\BlyncMorseCode.dll
+C:\src\BlyncMorseCode\BlyncMorseCode\BlyncMorseCode\obj\Debug\BlyncMorseCode.pdb
